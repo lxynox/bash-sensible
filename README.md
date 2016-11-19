@@ -5,11 +5,20 @@
 
 ## Contents
 
+* [Arithmetic](#arithmetic)
 * [String](#string)
-* [Branch](#branching)
+* [Conditional](#conditional)
 * [Loop](#looping)
 * [Array](#array)
 
+
+### Arithmetic
+
+#### arithmetic expansion
+
+```bash
+(( 1 + 2 + 3 ))
+```
 
 ### String
 
@@ -43,9 +52,15 @@ while test -n "$str"; do
 done
 ```
 
-### Branch
+### Conditionals 
 
-#### Using `test` command
+#### conditional expression
+
+```bash
+[[ -f $file ]] && echo $file is a file
+```
+
+#### `test` command
 
 ```bash
 if test "<expression>" = "<result>"
@@ -59,12 +74,12 @@ else
 fi
 ```
 
-#### Using `[]` command
+#### `[]` command
 
 ```bash
-if [ ...condition ]
+if [ -d $dir ]
 then
-    [ ... ]
+    echo $dir is a directory
 fi
 ```
 
@@ -88,6 +103,27 @@ do
 done
 ```
 
+#### pattern-based branching
+
+```bash
+ case "$action" in
+ o )
+     overwrite=true;;
+ O )
+     overwrite_all=true;;
+ b )
+     backup=true;;
+ B )
+     backup_all=true;;
+ s )
+     skip=true;;
+ S )
+     skip_all=true;;
+ * )
+     ;;
+esac
+```
+
 ### Array
 
 #### Indexed(array)
@@ -105,6 +141,18 @@ or
 arr=( "foo" "bar" )
 ```
 
+> Destruction(whole array)
+
+```bash
+unset -v arr/arr[@]/arr[*]
+```
+
+> Destruction(by index)
+
+```bash
+unset -v arr[N]
+```
+
 #### Associative(array)
 
 > Declaration & Initialization
@@ -120,3 +168,30 @@ OR
 ```bash
 declare -A hash=( [FOO]="foo" [BAR]="bar" )
 ```
+
+> Destruction
+
+```bash
+unset -v arr[STRING]
+```
+
+> Store(values)
+
+append
+
+```bash
+arr+=(E1 E2)
+``` 
+
+> Retrieve(values)
+
+iteration
+
+```bash
+for key in "${arr[@]}
+do
+    echo "key: " $key
+    echo "value: " ${arr[$key]"
+done
+```
+   
