@@ -8,8 +8,9 @@
 * [Arithmetic](#arithmetic)
 * [String](#string)
 * [Conditional](#conditional)
-* [Loop](#looping)
+* [Loop](#loop)
 * [Array](#array)
+* [Built-in](#built-in)
 
 
 ### Arithmetic
@@ -17,7 +18,7 @@
 #### arithmetic expansion
 
 ```bash
-(( 1 + 2 + 3 ))
+echo $(( 1 + 2 + 3 )) # output: 6
 ```
 
 ### String
@@ -52,7 +53,7 @@ while test -n "$str"; do
 done
 ```
 
-### Conditionals 
+### Conditional
 
 #### conditional expression
 
@@ -63,14 +64,15 @@ done
 #### `test` command
 
 ```bash
-if test "<expression>" = "<result>"
+num=2
+if test $(( num % 2 )) = 1
 then
-    [ ... ]
-elif test "<expression>" = "<result_alt>"
+    echo $num is odd
+elif test $(( num % 2 )) = 0
 then
-    [ ... ]
+    echo $num is even
 else
-    [ ... ]
+    echo $num is neither even nor odd
 fi
 ```
 
@@ -88,25 +90,33 @@ fi
 #### for
 
 ```bash
-for <expression>
+# list all **files** in $HOME directory
+
+for doc in $HOME/*
 do
-    [ ... ]
+    [ -f $doc ] && echo $doc is a file
 done
 ```
 
 #### while
 
 ```bash
-while <expression>
+# print out: 0 ... 9
+
+x=0
+while [ $x -lt 10 ]
 do
-    [ ... ]
+    echo $x is less than 10
+    (( x++ ))
 done
 ```
 
 #### pattern-based branching
 
 ```bash
- case "$action" in
+# set the right option for bootstrapping dotfiles according to the `$action`
+
+case "$action" in
  o )
      overwrite=true;;
  O )
@@ -188,10 +198,29 @@ arr+=(E1 E2)
 iteration
 
 ```bash
-for key in "${arr[@]}
+for key in "${arr[@]}"
 do
-    echo "key: " $key
-    echo "value: " ${arr[$key]"
+    echo "key: $key"
+    echo "value: ${arr[$key]}"
 done
 ```
-   
+
+### Built-in
+
+#### declaration commands
+
+```bash
+export name=value
+```
+
+> `export` makes the variable available to sub-process
+
+#### control flow and data processing
+
+```bash
+source $HOME/.bash_profile
+```
+
+> * `./script` runs the script as an excutable file, launching a **new shell** to run it
+
+> * `source script` reads and executes commands from filename in the **current shell** env
