@@ -213,7 +213,35 @@ done
 export name=value
 ```
 
-> `export` makes the variable available to sub-process
+> `export` makes the variable available to sub-process(not parent)
+
+Read inputs
+
+> read
+
+```bash
+# read name from command prompt(flag 'p' denotes prompt)
+read -p name
+```
+
+> HERE doc
+
+```bash
+cat <<EOF > $HOME/.bash_profile
+PATH=/usr/local/bin:$PATH
+EOF
+```
+
+> HERE string
+
+```bash
+# split $PATH into an array of paths
+arr_path=( $(grep -o '[^:]\+' <<< $(echo $PATH)) )
+for path in ${arr_path[*]}
+do
+    echo $path
+done
+```
 
 #### control flow and data processing
 
