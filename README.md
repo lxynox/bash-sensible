@@ -209,6 +209,8 @@ done
 
 #### declaration commands
 
+Export variables
+
 ```bash
 export name=value
 ```
