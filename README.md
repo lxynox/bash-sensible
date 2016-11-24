@@ -76,6 +76,21 @@ else
 fi
 ```
 
+> Files test
+
+>> -e/ -f/ -d/ -L/ -s: exists/ is_file/ is_directory/ is_symbolic_link/ is_not_empty 
+
+>> -r/ -w/ -x: exists&&readable/ exists&&writable/ exists&&excutable
+
+> String test
+
+>> -z/ -n: is_empty/ is_not_empty(default)
+
+> Arithmetic test
+
+>> -eq/ -ne/ -le/ -ge/ -lt/ -gt: ==/ !=/ <=/ >=/ </ >/
+
+
 #### `[]` command
 
 ```bash
